@@ -7,6 +7,8 @@ import re
 import links
 from base64 import b64decode
 
+base = 'http://www.pythonchallenge.com/pc/def/{}.html'
+
 # Obfuscated to avoid spoilers
 url = b64decode(links.link_03)
 
@@ -17,4 +19,10 @@ html = response.read()
 # Quick extraction of message from html
 msg = html.split('--')[-2].strip('\n')
 
-# Still in progress....
+# First attempt at python regex
+pattern = re.compile(r'[a-z]{1}[A-Z]{3}[a-z]{1}[A-Z]{3}[a-z]{1}')
+
+result = re.findall(pattern, msg)
+ans = ''.join([pat[4] for pat in result])
+
+print base.format(ans)
